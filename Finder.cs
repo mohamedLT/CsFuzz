@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Text;
 
+
 public enum FinderType
 {
     FILE,
@@ -12,8 +13,9 @@ public enum FinderType
 
 public class Finder
 {
-    public FinderType Type;
     public string? Dir;
+
+    public FinderType Type;
     public string SearchTarget = "";
     public bool CaseSensitive = false;
 
@@ -24,6 +26,7 @@ public class Finder
             Utils.PrintColored("|the search target is an empty string|");
             return;
         }
+
         if (Dir is null)
         {
             Dir = Directory.GetCurrentDirectory();
@@ -45,26 +48,33 @@ public class Finder
             }
         }
         List<string> result = new();
+
         switch (Type)
         {
             case FinderType.FILE:
                 result = FindFile(Dir, SearchTarget);
                 break;
+
             case FinderType.FILES:
                 result = FindInFiles(Dir, SearchTarget);
                 break;
+
             case FinderType.DIRECTORY:
                 result = FindDir(Dir, SearchTarget);
                 break;
+
             case FinderType.TEXT:
                 result = FindInFile(Dir, SearchTarget);
                 break;
+
         }
         foreach (string res in result)
         {
             Utils.PrintColored(res);
         }
     }
+
+
     List<string> FindFile(string directory, string file_name)
     {
         var files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
@@ -75,6 +85,8 @@ public class Finder
         });
         return bag.ToList();
     }
+
+
     List<string> FindInFiles(string directory, string text)
     {
         var files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
@@ -86,6 +98,8 @@ public class Finder
         };
         return res;
     }
+
+
     List<string> FindDir(string directory, string dir_name)
     {
         var dirs = Directory.GetDirectories(directory, "*", SearchOption.AllDirectories);
@@ -96,6 +110,8 @@ public class Finder
         });
         return bag.ToList();
     }
+
+
     List<string> FindInFile(string path, string text)
     {
         ConcurrentBag<string> bag = new();
@@ -109,6 +125,8 @@ public class Finder
         });
         return bag.ToList();
     }
+
+
     static Encoding GetEncoding(string filename)
     {
         using (var reader = new StreamReader(filename, Encoding.Default, true))
@@ -124,7 +142,11 @@ public class Finder
     public bool FuzzyIn(string s1, string s2)
     {
         var i = 0;
-        if (s1 == s2) { return true; }
+
+        if (s1 == s2)
+        {
+            return true;
+        }
         else if (s2.Length > s1.Length)
         {
             for (var j = 0; j < s2.Length; j++)
@@ -137,8 +159,6 @@ public class Finder
             }
             return i > (3 * s1.Length / 4);
         }
-
-
         return false;
     }
 
