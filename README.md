@@ -1,29 +1,10 @@
 # CsFuzz
 A command-line tool inspired by grep for searching for files directories or text within files using fuzzy string matching, built in C#. The tool runs concurrently for efficient search results.
 
-# Prerequisites
-You will need to have the following software installed on your computer:
+- made a simple algorithm to fuzzily match strings 
+- works like linux grep and helps to search for files/directories 
 
-- .NET 7
 
-# Installing
-To install the project, follow these steps:
-
-Clone the repository to your local machine
-
-`git clone https://github.com/mohamedLT/CsFuzz.git`
-
-Navigate to the project directory
-
-`cd CsFuzz`
-
-Run the following command to build the project
-
-`dotnet build`
-
-Run the following command to run the tool
-
-`dotnet run`
 
 # Usage
 ```
@@ -49,5 +30,3 @@ args:
 	
     -s 	Case sensitive search 
 ```
-# License
-This project is licensed under the MIT license.
